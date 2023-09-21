@@ -1,0 +1,7 @@
+{
+  "name": "outbreak",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

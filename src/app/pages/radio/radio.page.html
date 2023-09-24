@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Outbreak</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-text-center">    
+
+    <ion-img class="codigo-logo" src="../../../assets/codigo.png"></ion-img>
+  
+    <audio #audioElement src="{{src}}">
+      <p>Your browser does not support HTML5 audio. Here is a <a href="{{src}}">link</a> instead.</p>
+    </audio>
+    
+    <ion-button shape="circle" (click)="play()" *ngIf="paused" >
+      <ion-icon name="play-outline"></ion-icon>
+    </ion-button>  
+    <ion-button shape="circle" (click)="pause()" *ngIf="!paused" >
+      <ion-icon name="pause-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  
+</ion-content>

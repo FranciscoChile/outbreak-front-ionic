@@ -1,0 +1,16 @@
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .codigo-logo {
+      width: 75%; margin: auto;
+    }
+  }
+
+  @media only screen and (min-width : 1224px) {
+    .codigo-logo {
+      width: 50%;
+      margin: auto;
+    }
+   }
+
+   ion-content {
+    --background: #555555;
+  }

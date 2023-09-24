@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Outbreak</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <ion-item lines="none">
+      <ion-img class="album-cover" src="https://portaldisc.com/caratulas/3789.jpg">
+      </ion-img>      
+    </ion-item>
+
+
+    <ion-item (click)="openFile(song, i)" *ngFor="let song of files;let i=index;">
+      <ion-label [class.blink-2] ="loading === i" [color]="isSelected === i ? 'success' : ''">
+        <h3>{{song.songName}}</h3>
+        <p>{{song.artistName}}</p>
+      </ion-label>      
+    </ion-item>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-item lines="none">    
+    <ion-range #rangeSong min="0" [max]="state?.duration" [value]="state?.currentTime" mode="md" (ionChange)="onSliderChangeEnd(rangeSong)" [disabled]="state?.error || currentFile.index === undefined" ></ion-range>    
+      <ion-button shape="circle" (click)="play()" *ngIf="!state!.playing" >
+        <ion-icon name="play-outline"></ion-icon>
+      </ion-button>  
+      <ion-button shape="circle" (click)="pause()" *ngIf="state!.playing" >
+        <ion-icon name="pause-outline"></ion-icon>
+      </ion-button>  
+  </ion-item>
+</ion-footer>

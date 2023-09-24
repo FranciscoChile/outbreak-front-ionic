@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { StreamState } from 'src/app/interfaces/stream-state';
 import { AudioService } from 'src/app/services/audio.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -22,8 +23,14 @@ export class PlayerPage implements OnInit {
   @ViewChild("rangeSong", { read: ElementRef })
   rangeSong!: ElementRef;
 
-  constructor(private audioService: AudioService, public cloudService: CloudService, public auth: AuthService) {
-   
+  constructor(private router: Router, private audioService: AudioService, public cloudService: CloudService, public auth: AuthService) {
+    
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.pause();
+      } 
+    });
+
     cloudService.getAlbumIndex("1").subscribe({
       next: (data) => {
         this.files = data.data;
@@ -97,7 +104,7 @@ export class PlayerPage implements OnInit {
 
   play() {
 
-    if (!this.state?.playing) {
+    if (!this.state?.playing && this.isSelected == null) {
         this.openFile(this.files[0], 0);
     }
     

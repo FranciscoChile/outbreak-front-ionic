@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://outbreak-398318.uc.r.appspot.com'
+  apiUrl: 'http://localhost:8080'
 };
 
 /*

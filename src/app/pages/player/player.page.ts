@@ -68,33 +68,13 @@ export class PlayerPage implements OnInit {
     });
   }
 
-  openFile(file: any, index: number) {    
+  openFile(file: any, index: number) {
     this.loading = index;
     this.currentFile = { index, file };
     this.audioService.stop();    
-    this.cloudService.findById(file.id).subscribe({
-      next: (song) => {
-        const audioUrl = URL.createObjectURL(song);        
-        this.playStream(audioUrl);
-        this.checkVisited(index);
-      },
-      error: (v) => {
-        this.isSelected = null;
-        this.loading = null;
-        this.state!.error = true;
-      },
-      complete: () => {
-        this.loading = null;
-        //console.info('complete and loading next');
-        this.loadNext(index);
-      }
-    })
-  }
 
-
-  loadNext(index: number) {    
-    //TODO
-    //Implementar funcionalidad dependiendo de la experiencia de usuario
+    this.playStream(file);
+    this.checkVisited(index);
   }
 
 
@@ -113,6 +93,10 @@ export class PlayerPage implements OnInit {
 
   stop() {
     this.audioService.stop();
+  }
+
+  load() {
+    this.audioService.load();
   }
 
   next() {

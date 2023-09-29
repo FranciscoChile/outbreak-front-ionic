@@ -17,14 +17,34 @@ export class CloudService {
 
   constructor(private http: HttpClient) { }
 
-  findById(id: string): Observable<any> {
-
-    return this.http.get(this.apiUrl + "/audios/" + id, {
-      responseType: 'blob'
-    }).pipe(
+  findById(file: any): Observable<any> {    
+    
+    const fileSize = file.songSize;
+    let start = "0";
+    
+    const headers= new HttpHeaders()
+    .set('Range', "bytes=" + start + "-" + (1024*1024))
+    return this.http.get(this.apiUrl + "/data/flux/" + file.id,      
+    {observe: 'response', headers, responseType: 'blob' }
+    )
+    .pipe(
       catchError(this.errorHandler)
     );
+
+  }
+
+  findByIdSecondPart(file: any): Observable<any> {    
     
+    const fileSize = file.songSize;
+    const headers= new HttpHeaders()
+    .set('Range', "bytes=" + 1024*1024 + "-")
+    return this.http.get(this.apiUrl + "/data/flux/" + file.id,      
+    {observe: 'response', headers, responseType: 'blob' }
+    )
+    .pipe(
+      catchError(this.errorHandler)
+    );
+
   }
 
   getAlbumIndex(album: string): Observable<any> {

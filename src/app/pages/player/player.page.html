@@ -24,7 +24,7 @@
 
 <ion-footer>
   <ion-item lines="none">    
-    <ion-range #rangeSong min="0" [max]="state?.duration" [value]="state?.currentTime" mode="md" (ionChange)="onSliderChangeEnd(rangeSong)" [disabled]="state?.error || currentFile.index === undefined" ></ion-range>    
+    <ion-range #rangeSong min="0" [max]="state?.duration != undefined ? state?.duration : 0" [value]="state?.currentTime != undefined ? state?.currentTime: 0" mode="md" (ionChange)="onSliderChangeEnd(rangeSong)" [disabled]="state?.error || currentFile.index === undefined" ></ion-range>    
       <ion-button shape="circle" (click)="play()" *ngIf="!state!.playing" >
         <ion-icon name="play-outline"></ion-icon>
       </ion-button>  

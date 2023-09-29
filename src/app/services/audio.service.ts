@@ -10,6 +10,14 @@ import { StreamState } from '../interfaces/stream-state';
 export class AudioService {
   private stop$ = new Subject<void>();
   private audioObj = new Audio();
+  private songParts: any[] = [];  
+  sourceBuffer: any;
+  mediaSource = new MediaSource();
+
+  constructor() {  
+    this.audioObj.src = URL.createObjectURL(this.mediaSource);    
+   }
+
   audioEvents = [
     'ended', 'error', 'play', 'playing', 'pause', 'timeupdate', 'canplay', 'loadedmetadata', 'loadstart'
   ];
@@ -25,11 +33,14 @@ export class AudioService {
 
   private streamObservable(url: any) {
     return new Observable(observer => {
-      // Play audio      
-      this.audioObj.src = url;
+      // Play audio
+      //const audioUrl = URL.createObjectURL(url.body);
+
+      const fileUrl = "https://storage.googleapis.com/outbreakofevil/" + url.id;
+
+      this.audioObj.src = fileUrl;
       this.audioObj.load();
       this.audioObj.play();
-  
 
       const handler = (event: Event) => {
         this.updateStateEvents(event);
@@ -75,6 +86,10 @@ export class AudioService {
 
   stop() {
     this.stop$.next();
+  }
+
+  load() {
+    this.audioObj.load();
   }
 
   seekTo(seconds: number) {
@@ -128,4 +143,5 @@ export class AudioService {
   getState(): Observable<StreamState> {
     return this.stateChange.asObservable();
   }
+
 }

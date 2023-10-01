@@ -34,11 +34,7 @@ export class AudioService {
   private streamObservable(url: any) {
     return new Observable(observer => {
       // Play audio
-      //const audioUrl = URL.createObjectURL(url.body);
-
-      const fileUrl = "https://storage.googleapis.com/outbreakofevil/" + url.id;
-
-      this.audioObj.src = fileUrl;
+      this.audioObj.src = url;
       this.audioObj.load();
       this.audioObj.play();
 

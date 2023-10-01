@@ -8,8 +8,6 @@ import { environment } from '../../environments/environment';
 })
 export class CloudService {
 
-  
-
   private apiUrl = environment.apiUrl +  "/api/outbreak";
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,29 +15,10 @@ export class CloudService {
 
   constructor(private http: HttpClient) { }
 
-  findById(file: any): Observable<any> {    
+  findById(id: any): Observable<any> {    
     
-    const fileSize = file.songSize;
-    let start = "0";
-    
-    const headers= new HttpHeaders()
-    .set('Range', "bytes=" + start + "-" + (1024*1024))
-    return this.http.get(this.apiUrl + "/data/flux/" + file.id,      
-    {observe: 'response', headers, responseType: 'blob' }
-    )
-    .pipe(
-      catchError(this.errorHandler)
-    );
-
-  }
-
-  findByIdSecondPart(file: any): Observable<any> {    
-    
-    const fileSize = file.songSize;
-    const headers= new HttpHeaders()
-    .set('Range', "bytes=" + 1024*1024 + "-")
-    return this.http.get(this.apiUrl + "/data/flux/" + file.id,      
-    {observe: 'response', headers, responseType: 'blob' }
+    return this.http.get(this.apiUrl + "/signinurl/" + id,      
+    {responseType: 'text'}
     )
     .pipe(
       catchError(this.errorHandler)

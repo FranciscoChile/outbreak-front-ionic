@@ -73,8 +73,11 @@ export class PlayerPage implements OnInit {
     this.currentFile = { index, file };
     this.audioService.stop();    
 
-    this.playStream(file);
-    this.checkVisited(index);
+    this.cloudService.findById(file.id).subscribe(url => {
+      this.playStream(url);
+      this.checkVisited(index);  
+    });
+
   }
 
 
